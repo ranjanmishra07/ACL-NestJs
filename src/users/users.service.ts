@@ -21,7 +21,6 @@ export class UsersService {
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<{success: boolean}> {
-    console.log(typeof createUserDto.email);
     const res = await this.userRepository.insert(createUserDto);
     if (res.identifiers) {
       console.log(res.identifiers, res.generatedMaps, res.raw);

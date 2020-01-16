@@ -32,3 +32,8 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+
+
+#credential
+/src/config/typeorm.config.ts
