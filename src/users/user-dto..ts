@@ -43,3 +43,21 @@ export class TestDto {
     return email.includes('mygate');
   }
 }
+
+export class CacheUserDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(4)
+  readonly name: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsEmail()
+  readonly email: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  readonly password: string;
+}
