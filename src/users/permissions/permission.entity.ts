@@ -2,8 +2,8 @@ import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from 'ty
 import { IsNotEmpty } from 'class-validator';
 @Entity()
 export class Permission {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @IsNotEmpty()
   @Column({unique: true, nullable: false})

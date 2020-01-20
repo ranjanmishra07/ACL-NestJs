@@ -3,14 +3,14 @@ import { Permission } from '../permissions/permission.entity';
 
 @Entity()
 export class Role {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column({name: 'role_name', type: 'text', nullable: false})
   roleName: string;
 
-  @Column({type: 'text', nullable: false})
-  priority: string;
+  @Column({ nullable: false})
+  priority: number;
 
   @ManyToMany(type => Permission)
   @JoinTable({

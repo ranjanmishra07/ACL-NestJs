@@ -29,8 +29,7 @@ export class AuthService {
     if (!userRes) {
       throw Error('no user found');
     }
-    const role =  userRes.role;
-    const payload = { email: user.email, role };
+    const payload = { email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
     };

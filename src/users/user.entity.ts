@@ -11,8 +11,8 @@ export enum UserRole {
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   @MinLength(4)
@@ -24,13 +24,6 @@ export class User {
 
   @Column()
   password: string;
-
-  @Column({
-    type: 'enum',
-    enum: UserRole,
-    default: UserRole.USER,
-  })
-  role: UserRole;
 
   @OneToMany(type => UserPermissions, permissions => permissions.permission)
   permissions: UserPermissions[];
