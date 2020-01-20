@@ -1,26 +1,27 @@
 import { Controller, Get, Post, Body, UsePipes, ValidationPipe, Request, UseGuards } from '@nestjs/common';
-import { CreateUserDto, LoginUserDto } from './user-dto.';
-import { Users, UserRole } from './users.entity';
-import { UsersService } from './users.service';
+import { CreateUserDto, LoginUserDto, TestDto } from './user-dto.';
+import { User, UserRole } from './user.entity';
+import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiHeader } from '@nestjs/swagger';
 import { Roles } from './decorators/get-roles.decorator';
 import { RolesGuard } from './roles/roles.guard';
 import { GetUser } from './decorators/get-user.decorator';
 
-@Controller('users')
+@Controller('User')
 @ApiHeader({
   name: 'Authorization',
   description: 'Auth token',
 })
-export class UsersController {
-  constructor (private readonly userService: UsersService){}
+export class UserController {
+  constructor(private readonly Userervice: UserService){}
 
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.ADMIN)
   @Get()
-  async findAllUser(): Promise<Users[]> {
-    const result =  await this.userService.findAllUser();
+  async findAllUser(@GetUser() user: User): Promise<User[]> {
+    // const roleAcess = await this.roleService.checkAccess(user.role);
+    const result =  await this.Userervice.findAllUser();
     return result;
   }
 
@@ -29,14 +30,20 @@ export class UsersController {
   @Post()
   @UsePipes(new ValidationPipe())
   async createUser(@Body() createUserDto: CreateUserDto) {
-    return await this.userService.createUser(createUserDto);
+    return await this.Userervice.createUser(createUserDto);
   }
 
 
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.SUPERUSER)
   @Get('/profile')
-  getProfile(@GetUser() user: Users) {
+  getProfile(@GetUser() user: User) {
     return user;
+  }
+
+  @Post('test')
+  @UsePipes(new ValidationPipe())
+  getCustomUser(@Body() testDto: TestDto) {
+    return testDto;
   }
 }

@@ -1,6 +1,6 @@
 import {IsNotEmpty, IsEnum, IsString, IsEmail, MinLength} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { UserRole } from './users.entity';
+import { UserRole } from './user.entity';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -33,4 +33,13 @@ export class LoginUserDto {
   @ApiProperty()
   @IsNotEmpty()
   readonly password: string;
+}
+
+export class TestDto {
+  @IsNotEmpty()
+  email: string;
+
+  validateEmail(email: string) {
+    return email.includes('mygate');
+  }
 }

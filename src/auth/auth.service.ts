@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
+import { UserService } from '../users/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { Users } from 'src/users/users.entity';
+import { User } from 'src/users/user.entity';
 import { LoginUserDto } from 'src/users/user-dto.';
 
 export const jwtConstants = {
@@ -11,7 +11,7 @@ export const jwtConstants = {
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 

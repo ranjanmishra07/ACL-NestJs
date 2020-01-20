@@ -1,7 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
-import { UsersModule } from '../users/users.module';
+import { UserModule } from '../users/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth.service';
@@ -15,7 +15,7 @@ import { JwtStrategy } from './jwt.strategy';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '300s' },
     }),
-    (forwardRef(() => UsersModule)),
+    (forwardRef(() => UserModule)),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService, JwtStrategy, PassportModule],
