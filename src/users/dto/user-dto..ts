@@ -1,6 +1,6 @@
 import {IsNotEmpty, IsEnum, IsString, IsEmail, MinLength} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { UserRole } from './user.entity';
+// import { UserRole } from './user.entity';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -20,8 +20,17 @@ export class CreateUserDto {
   readonly password: string;
 
   @ApiProperty()
-  @IsEnum(UserRole)
-  readonly role: UserRole;
+  readonly pemissionIds?: number[];
+
+  @ApiProperty()
+  readonly roleIds?: number[];
+
+  @ApiProperty()
+  readonly accessIds: number[];
+
+  // @ApiProperty()
+  // @IsEnum(UserRole)
+  // readonly role: UserRole;
 }
 
 /* tslint:disable:max-classes-per-file */
