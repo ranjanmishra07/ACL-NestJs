@@ -1,18 +1,18 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { MinLength, IsEmail, IsNotEmpty, validate } from 'class-validator';
-import { UserPermissions } from './permissions/user-permission.entity';
+import { UserPermissions } from './user-permission.entity';
 import { UserAccess } from './user-access.entity';
 
-export enum UserRole {
-  ADMIN = 'admin',
-  SUPERUSER = 'superuser',
-  USER = 'user',
-}
+// export enum UserRole {
+//   ADMIN = 'admin',
+//   SUPERUSER = 'superuser',
+//   USER = 'user',
+// }
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   @MinLength(4)
@@ -24,13 +24,6 @@ export class User {
 
   @Column()
   password: string;
-
-  @Column({
-    type: 'enum',
-    enum: UserRole,
-    default: UserRole.USER,
-  })
-  role: UserRole;
 
   @OneToMany(type => UserPermissions, permissions => permissions.permission)
   permissions: UserPermissions[];

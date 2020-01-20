@@ -23,8 +23,8 @@ export class UserAccess {
   })
   entityType: UserAccessEntityType;
 
-  @PrimaryColumn({name: 'entity_id', type: 'text'})
-  entityId: string;
+  @PrimaryColumn({name: 'entity_id'})
+  entityId: number;
 
   @Column({type: 'boolean', nullable: true})
   deleted: boolean;
