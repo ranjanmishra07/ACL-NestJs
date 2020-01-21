@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException, HttpException, HttpStatus } f
 import { UserService } from '../users/services/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/entities/user.entity';
-import { LoginUserDto } from 'src/users/dto/user-dto.';
+import { LoginUserDto } from 'src/users/dto/user-dto';
 
 export const jwtConstants = {
   secret: 'secretKey',

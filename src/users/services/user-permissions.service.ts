@@ -6,7 +6,7 @@ import { UserRole } from '../entities/user-roles.entity';
 import { User } from '../entities/user.entity';
 import { UserPermissions } from '../entities/user-permission.entity';
 import { Permission } from '../entities/permission.entity';
-import { CreateUserPermissionsDto } from '../dto/user-dto.';
+import { CreateUserPermissionsDto } from '../dto/user-dto';
 
 @Injectable()
 export class UserPermissionService {

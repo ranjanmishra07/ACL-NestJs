@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, InsertResult } from 'typeorm';
 import { UserRole } from '../entities/user-roles.entity';
 import { User } from '../entities/user.entity';
-import { CreateUserRolesDto, CreateUserAccessDto } from '../dto/user-dto.';
+import { CreateUserRolesDto, CreateUserAccessDto } from '../dto/user-dto';
 import { UserAccess } from '../entities/user-access.entity';
 
 @Injectable()

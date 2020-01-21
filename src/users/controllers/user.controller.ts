@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, UsePipes, ValidationPipe, Request, UseGuards, HttpException, HttpStatus, Param } from '@nestjs/common';
-import { CreateUserDto, LoginUserDto, TestDto, CreateUserPermissionsDto, CreateUserRolesDto, CreateUserAccessDto } from '../dto/user-dto.';
+import { CreateUserDto, LoginUserDto, TestDto, CreateUserRolesDto, CreateUserAccessDto, CreateUserPermissionsDto } from 'src/users/dto/user-dto';
 import { User } from '../entities/user.entity';
 import { UserService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
