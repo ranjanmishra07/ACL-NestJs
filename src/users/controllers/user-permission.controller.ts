@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, UsePipes, ValidationPipe, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiHeader } from '@nestjs/swagger';
-import { UserPermissionService } from './user-permission.service';
+import { UserPermissionService } from '../services/user-permission.service';
 
 
 @Controller('User')

@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { MinLength, IsEmail, IsNotEmpty, validate } from 'class-validator';
-import { UserPermissions } from './permissions/user-permission.entity';
+import { UserPermissions } from './entities/user-permission.entity';
 import { UserAccess } from './user-access.entity';
 
 export enum UserRole {

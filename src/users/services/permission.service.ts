@@ -1,7 +1,7 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { Permission } from "./permission.entity";
+import { Permission } from "../entities/permission.entity";
 import { Repository } from "typeorm";
-import { CreatePermissionDTO } from "./permission.dto";
+import { CreatePermissionDTO } from "../dto/permission.dto";
 import { OnModuleInit, Injectable } from "@nestjs/common";
 import { permissionListArry } from "src/permission-list/permission-list";
 
