@@ -4,13 +4,19 @@ import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/user-dto.';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRoleService } from './user-roles.service';
+import { UserPermissions } from '../entities/user-permission.entity';
+import { PermissionService } from './permission.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    private readonly userRoleService: UserRoleService,
+    @InjectRepository(UserPermissions)
+    private readonly userPermissionRepository : Repository<UserPermissions>,
+    private readonly permissionService : PermissionService,
+    private readonly userRoleService: UserRoleService
+
     ) {
 
   }

@@ -5,6 +5,10 @@ export let permissionListArry = [
     },
     {
         pcode : 'P-EDIT-USER',
-        permissionName : 'User with this permission can create User'
+        permissionName : 'User with this permission can update User'
+    },
+    {
+        pcode : 'P-DELETE-USER',
+        permissionName : 'User with this permission can delte User'
     }
 ]

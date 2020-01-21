@@ -15,6 +15,7 @@ export class PermissionService implements OnModuleInit {
     ) {}
 
     onModuleInit() {
+        console.log('Permission module initialized')
         this.createPermission(permissionListArry)
     }
 
@@ -30,5 +31,10 @@ export class PermissionService implements OnModuleInit {
             }
         }
         return null
+    }
+
+    async findPermissionByIds( permissionIds: number[]) : Promise<Permission[]> {
+        // console.log('permissionIds',permissionIds)
+        return await this.permissionRepository.findByIds(permissionIds);
     }
 }
