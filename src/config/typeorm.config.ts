@@ -8,12 +8,12 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: 'postgres',
   database: 'octo-nest',
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
-  synchronize: true,
+  synchronize: false,
 };
 
 export const googleSecret = {
-  clientID: "clientId",
-  clientSecret: "secret",
+  clientID: "822165741217-0j91462j93h09fur82gmlfjeucdbthpd.apps.googleusercontent.com",
+  clientSecret: "LuaazKrjVjq3aqj_vbbiV5gp",
 }
 
 export const jwtConstants = {

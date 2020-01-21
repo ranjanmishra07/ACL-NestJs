@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsEnum, IsNumber } from "class-validator";
+import { IsNotEmpty, IsEnum, IsNumber } from 'class-validator';
 
 export enum RoleName {
     ADMIN = 'admin',
     KAM = 'kam',
     CAPTAIN = 'captain',
     CITY = 'city',
-    OPS = 'ops'
+    OPS = 'ops',
 }
 
 export class UserRoleDTO {
@@ -13,15 +13,16 @@ export class UserRoleDTO {
     @IsEnum(RoleName)
     roleName: RoleName
 
-    priority: number
+    priority: number;
 }
 
 
+// tslint:disable-next-line: max-classes-per-file
 export class RolePermissionDTO {
     @IsNotEmpty()
     @IsNumber()
-    roleId: number
+    roleId: number;
 
     @IsNotEmpty()
-    permissionsIds: number[]
+    permissionsIds: number[];
 }

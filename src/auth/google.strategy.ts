@@ -26,7 +26,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google')
             const user = await this.usersService.findOne(profile.emails[0].value);
             if (!user) throw new HttpException('User not found', HttpStatus.FORBIDDEN);
             const jwt: string = await this.authService.validateOAuthLogin(user, Provider.GOOGLE)
-            const accessToken = { jwt }
+            const accessToken = { jwt };
             done(null, accessToken);
         }
         catch (err) {

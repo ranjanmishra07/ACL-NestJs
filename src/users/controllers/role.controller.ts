@@ -17,13 +17,13 @@ import { UserRoleDTO, RolePermissionDTO } from '../dto/role.dto';
 })
 export class RoleController {
   constructor(
-      private readonly roleService : RoleService
-  ){}
+      private readonly roleService : RoleService,
+  ) {}
 
   @Post()
   @UsePipes(new ValidationPipe())
   async createRole(@Body() createRoleDto : UserRoleDTO):Promise<string> {
-    return await this.roleService.createRoles(createRoleDto)
+    return await this.roleService.createRoles(createRoleDto);
   }
 
   @Post('permissions')
@@ -33,7 +33,7 @@ export class RoleController {
   }
 
   @Get('permissions')
-  async getRolePermissions(@Query('roleId',ParseIntPipe) roleId:number) {
+  async getRolePermissions(@Query('roleId', ParseIntPipe) roleId: number) {
     return await this.roleService.getRolePermissions(roleId);
   }
 

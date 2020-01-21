@@ -49,12 +49,11 @@ export class AuthService {
         id : user.id,
         role : 'ROLE',
         username : user.name,
-        provider
-      }
+        provider,
+      };
       const jwt: string =  this.jwtService.sign(payload);
       return jwt;
-    }
-    catch (err) {
+    } catch (err) {
       throw new  InternalServerErrorException('Error while google sign in');
     }
   }

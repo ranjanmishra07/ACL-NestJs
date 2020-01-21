@@ -10,5 +10,5 @@ export let permissionListArry = [
     {
         pcode : 'P-DELETE-USER',
         permissionName : 'User with this permission can delte User'
-    }
-]
+    },
+];
