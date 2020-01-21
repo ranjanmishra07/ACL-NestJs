@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '../users/user.service';
+import { UserService } from '../users/services/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/user.entity';
-import { LoginUserDto } from 'src/users/user-dto.';
+import { User } from 'src/users/entities/user.entity';
+import { LoginUserDto } from 'src/users/dto/user-dto.';
 
 export const jwtConstants = {
   secret: 'secretKey',
@@ -29,7 +29,9 @@ export class AuthService {
     if (!userRes) {
       throw Error('no user found');
     }
-    const payload = { email: user.email };
+    // const role =  userRes;
+    const role = 'role';
+    const payload = { email: user.email, role };
     return {
       access_token: this.jwtService.sign(payload),
     };

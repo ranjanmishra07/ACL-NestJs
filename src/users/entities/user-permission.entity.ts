@@ -1,11 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, PrimaryColumn, JoinColumn, ManyToOne } from 'typeorm';
 import { Permission } from './permission.entity';
-import { User } from '../user.entity';
+import { User } from './user.entity';
 @Entity()
 export class UserPermissions {
   @PrimaryGeneratedColumn()
-  id: number;
-  // @PrimaryGeneratedColumn('uuid')
+  id : number
+
   @ManyToOne(type => User, user => user.permissions)
   @JoinColumn({name: 'user_id'})
   user: User;
