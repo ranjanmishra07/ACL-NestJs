@@ -91,3 +91,20 @@ export class CreateUserAccessDto {
   @IsBoolean()
   readonly deleted?: boolean;
 }
+export class CacheUserDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(4)
+  readonly name: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsEmail()
+  readonly email: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  readonly password: string;
+}
