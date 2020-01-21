@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany,
 import { MinLength, IsEmail, IsNotEmpty, validate } from 'class-validator';
 import { UserPermissions } from './user-permission.entity';
 import { UserAccess } from './user-access.entity';
+import { UserRole } from './user-roles.entity';
 
 // export enum UserRole {
 //   ADMIN = 'admin',
@@ -30,5 +31,9 @@ export class User {
 
   @OneToMany(type => UserAccess, userAccess => userAccess.user)
   userAccess: UserAccess[];
+
+  @OneToMany(type => UserRole, userRole => userRole.user)
+  userRole: UserRole[];
+
 
 }

@@ -3,11 +3,14 @@ import { Permission } from './permission.entity';
 import { User } from './user.entity';
 @Entity()
 export class UserPermissions {
-  @ManyToOne(type => User, user => user.permissions, {primary: true})
+  @PrimaryGeneratedColumn()
+  id : number
+
+  @ManyToOne(type => User, user => user.permissions)
   @JoinColumn({name: 'user_id'})
   user: User;
 
-  @OneToOne(type => Permission, permission => permission.id, {primary: true})
+  @OneToOne(type => Permission, permission => permission.id)
   @JoinColumn({name: 'permission_id'})
   permission: Permission;
 

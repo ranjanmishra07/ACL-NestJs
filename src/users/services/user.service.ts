@@ -41,6 +41,7 @@ export class UserService {
     try {
       await this.userRoleService.createUserRoles(roleIds, userRes.id);
     } catch ( err) {
+      console.log(err);
       throw new HttpException('role can not be created ', 500);
     }
     if (userRes.id) {
