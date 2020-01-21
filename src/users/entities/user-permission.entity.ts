@@ -4,7 +4,7 @@ import { User } from './user.entity';
 @Entity()
 export class UserPermissions {
   @PrimaryGeneratedColumn()
-  id : number
+  id: number;
 
   @ManyToOne(type => User, user => user.permissions)
   @JoinColumn({name: 'user_id'})

@@ -10,11 +10,15 @@ import { UserPermissions } from './entities/user-permission.entity';
 import { UserAccess } from './entities/user-access.entity';
 import { RoleService } from './services/role.service';
 import { UserRoleService } from './services/user-roles.service';
+import { PermissionService } from './services/permission.service';
+import { Permission } from './entities/permission.entity';
+import { UserPermissionService } from './services/user-permissions.service';
+import { UserAccessService } from './services/user-access.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Role, UserRole, UserPermissions, UserAccess, UserPermissions, UserRole]), forwardRef(() => AuthModule) ],
+  imports: [TypeOrmModule.forFeature([User, Role, UserRole, UserPermissions, UserAccess, UserRole, Permission]), forwardRef(() => AuthModule) ],
   controllers: [UserController],
-  providers: [UserService, RoleService, UserRoleService],
+  providers: [UserService, RoleService, UserRoleService, PermissionService, UserPermissionService, UserAccessService],
   exports: [UserService, RoleService],
 })
 export class UserModule {}

@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Role } from '../entities/role.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, InsertResult } from 'typeorm';
 import { UserRole } from '../entities/user-roles.entity';
 import { User } from '../entities/user.entity';
+import { CreateUserRolesDto } from '../dto/user-dto.';
 
 @Injectable()
 export class UserRoleService {
@@ -16,19 +17,28 @@ export class UserRoleService {
     private readonly roleRepository: Repository<Role>,
   ) { }
 
-  async createUserRoles(roleIds: number[], userId: number) {
-    const roles = await this.roleRepository.findByIds(roleIds);
-    const user = await this.userRepository.findOne(userId);
-    for (const role of roles) {
-      // // const userRole = {role, user};
-      // const userRole = new UserRole();
-      // userRole.role = roleIds;
-      const userRole = new UserRole();
-      userRole.role = role;
-      userRole.user = user;
-      console.log('role', userRole);
-      await this.userRolesRepositoty.save(userRole);
-
+  async createUserRoles(createUserRolesDto: CreateUserRolesDto): Promise<{success: boolean, message: string}> {
+    let result: InsertResult;
+    let userRoleMessage;
+    try {
+      const roles = await this.roleRepository.findByIds(createUserRolesDto.roleIds);
+      if (!roles ) {throw new HttpException('failed to fetch the roles', HttpStatus.NOT_FOUND); }
+      const user = await this.userRepository.findOne(createUserRolesDto.id);
+      if (!user) { throw new HttpException('user does not exist', HttpStatus.NOT_FOUND); }
+      const userObj: Array<{role: Role, user: User}> = [];
+      for (const role of roles) {
+        userObj.push({role, user});
+      }
+      result = await this.userRolesRepositoty.insert(userObj);
+    } catch (err) {
+      console.log(err);
+      userRoleMessage = {success: false, message: `failed to create the permssion for user ${createUserRolesDto.id}`};
     }
-  }
+    if ( result.identifiers && result.identifiers.length === createUserRolesDto.roleIds.length) {
+        userRoleMessage = {success: true, message: 'role has been created', permission : result.identifiers};
+    } else {
+      userRoleMessage = {success: false, message: 'failed to create the role'};
+    }
+    return userRoleMessage;
+    }
 }

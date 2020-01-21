@@ -22,32 +22,18 @@ export class UserService {
     return await this.userRepository.findOne({email});
   }
 
-  async createUser(createUserDto: CreateUserDto, params?: string[]): Promise<{success: boolean}> {
-    // const userObj = {
-    //   name : createUserDto.name,
-    //   email: createUserDto.email,
-    //   password: createUserDto.password,
-    // };
+  async createUser(createUserDto: CreateUserDto): Promise<{}> {
     const user = new User();
     user.name = createUserDto.name;
     user.email = createUserDto.email;
     user.password = createUserDto.password;
 
     const userRes = await this.userRepository.save(user);
-
-    const roleIds = createUserDto.roleIds && createUserDto.roleIds.length > 0 &&  createUserDto.roleIds;
-    // const res = await this.userRepository.insert(userObj);
-    // console.log('ideee', res.identifiers.id);
-    try {
-      await this.userRoleService.createUserRoles(roleIds, userRes.id);
-    } catch ( err) {
-      console.log(err);
-      throw new HttpException('role can not be created ', 500);
-    }
     if (userRes.id) {
-      return {success: true};
+      const userCreateMessage = {success: true, message: 'user has been created '};
+      return {userCreateMessage};
     } else {
-      return {success: false};
+      return new HttpException({success: false, message: 'user cant be created'}, 500);
     }
   }
 }
