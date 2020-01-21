@@ -9,8 +9,8 @@ export enum UserAccessEntityType {
 
 @Entity()
 export class UserAccess {
-   @PrimaryGeneratedColumn()
-   id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
   // @PrimaryColumn()
   @ManyToOne(type => User, user => user.userAccess)
   @JoinColumn({name: 'user_id'})

@@ -18,7 +18,7 @@ import { GoogleStrategy } from './google.strategy';
     }),
     (forwardRef(() => UserModule)),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy,GoogleStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, GoogleStrategy],
   exports: [AuthService, JwtStrategy, PassportModule],
   controllers: [AuthController],
 })

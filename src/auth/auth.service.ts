@@ -3,6 +3,8 @@ import { UserService } from '../users/services/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/entities/user.entity';
 import { LoginUserDto } from 'src/users/dto/user-dto';
+import { UserRoleService } from 'src/users/services/user-roles.service';
+import { UserPermissionService } from 'src/users/services/user-permissions.service';
 
 export const jwtConstants = {
   secret: 'secretKey',
@@ -47,14 +49,12 @@ export class AuthService {
       const payload = {
         email : user.email,
         id : user.id,
-        role : 'ROLE',
         username : user.name,
-        provider
-      }
+        provider,
+      };
       const jwt: string =  this.jwtService.sign(payload);
       return jwt;
-    }
-    catch (err) {
+    } catch (err) {
       throw new  InternalServerErrorException('Error while google sign in');
     }
   }

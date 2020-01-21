@@ -14,7 +14,7 @@ import { UserRoleService } from '../services/user-roles.service';
 import { UserAccessService } from '../services/user-access.service';
 
 @Controller('user')
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @ApiHeader({
   name: 'Authorization',
   description: 'Auth token',
