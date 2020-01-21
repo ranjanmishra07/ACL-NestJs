@@ -4,7 +4,7 @@ import { Strategy } from "passport-google-oauth20";
 import { googleSecret } from "src/config/typeorm.config";
 import { AuthService } from "./auth.service";
 import { UserService } from "src/users/services/user.service";
-import {Provider} from './auth.service'
+import {Provider} from './auth.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google')

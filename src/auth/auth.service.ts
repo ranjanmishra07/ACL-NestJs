@@ -10,7 +10,7 @@ export const jwtConstants = {
 
 
 export enum Provider {
-  GOOGLE = 'google'
+  GOOGLE = 'google',
 }
 
 @Injectable()

@@ -1,7 +1,7 @@
-import * as redisStore from 'cache-manager-redis-store';
+// import * as redisStore from 'cache-manager-redis-store';
 
-export const redisConfig = {
-    store: redisStore,
-        host: 'localhost',
-        port: 6379,
-};
+// export const redisConfig = {
+//     store: redisStore,
+//         host: 'localhost',
+//         port: 6379,
+// };
