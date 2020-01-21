@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, HttpException, HttpStatus } from '@nestjs/common';
 import { UserService } from '../users/services/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/entities/user.entity';
@@ -7,6 +7,11 @@ import { LoginUserDto } from 'src/users/dto/user-dto.';
 export const jwtConstants = {
   secret: 'secretKey',
 };
+
+
+export enum Provider {
+  GOOGLE = 'google'
+}
 
 @Injectable()
 export class AuthService {
@@ -35,5 +40,22 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async validateOAuthLogin(user: User , provider: Provider): Promise<string> {
+    try {
+      const payload = {
+        email : user.email,
+        id : user.id,
+        role : 'ROLE',
+        username : user.name,
+        provider
+      }
+      const jwt: string =  this.jwtService.sign(payload);
+      return jwt;
+    }
+    catch (err) {
+      throw new  InternalServerErrorException('Error while google sign in');
+    }
   }
 }

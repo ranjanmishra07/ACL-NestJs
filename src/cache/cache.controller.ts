@@ -1,5 +1,5 @@
 import { Controller, Request, Post, UseGuards, Body } from '@nestjs/common';
-import { CacheUserDto } from 'src/users/user-dto.';
+import { CacheUserDto } from 'src/users/dto/user-dto.';
 import {CacheService} from './cache.service';
 
 @Controller('cache')
