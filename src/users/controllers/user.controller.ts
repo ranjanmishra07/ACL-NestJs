@@ -76,6 +76,7 @@ export class UserController {
     return await this.userAccessService.createUserAccess(createUserAccessDto);
   }
 
+  @Auth(['admin'])
   @Get('permissions')
   @UsePipes(new ValidationPipe())
   async getUserPermissions(@GetUser() user: User) {
@@ -88,7 +89,7 @@ export class UserController {
 
   // @UseGuards(AuthGuard('jwt'), RolesGuard)
   // @Roles(UserRole.ADMIN, UserRole.SUPERUSER)
-  @Auth(['admin'], 'P-CODE')
+  @Auth(['admin'])
   @Get('/profile')
   getProfile(@GetUser() user: User) {
     return user;

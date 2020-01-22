@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import { Role } from '../entities/role.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, InsertResult } from 'typeorm';
@@ -25,13 +25,14 @@ export class UserPermissionService {
     try {
       const permissions = await this.permissionRepository.findByIds(createUserPermissionsDto.permissionIds);
       const user = await this.userRepository.findOne(createUserPermissionsDto.id);
+      if (!user) { throw new HttpException('User not found', 404) }
       const userObj: Array<{ permission: Permission, user: User }> = [];
       for (const permission of permissions) {
         userObj.push({ permission, user });
       }
       result = await this.userPermisionRepository.insert(userObj);
     } catch (err) {
-      console.log(err);
+      throw err;
       userRoleMessage = { success: false, message: `failed to create the permssion for user ${createUserPermissionsDto.id}` };
     }
     if (result.identifiers && result.identifiers.length === createUserPermissionsDto.permissionIds.length) {
@@ -53,6 +54,7 @@ export class UserPermissionService {
   async checkUserPermission(user: User, pcode: string): Promise<boolean> {
     const { permissions } = await this.userRepository.findOne(user.id, { relations: ['permissions'] });
     const userPermissions = permissions.map(p => p.permission.pcode);
+    // arrayObj.filter(x=>normArr.includes(x.name) )
     if (userPermissions.includes(pcode)) {
       return true;
     }

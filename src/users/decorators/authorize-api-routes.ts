@@ -7,7 +7,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../utils/roles.guard';
 import { Role } from '../entities/role.entity';
 
-export function Auth(roles: string[], pcode?: string) {
+export function Auth(roles: string[], pcode?: string[]) {
   return applyDecorators(
     SetMetadata('roles', roles),
     SetMetadata('pcode', pcode),

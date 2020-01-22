@@ -31,7 +31,7 @@ export class UserRoleService {
       }
       result = await this.userRolesRepositoty.insert(userObj);
     } catch (err) {
-      console.log(err);
+      throw(err);
       userRoleMessage = {success: false, message: `failed to create the permssion for user ${createUserRolesDto.id}`};
     }
     if ( result.identifiers && result.identifiers.length === createUserRolesDto.roleIds.length) {

@@ -1,4 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+dotenv.config()
+
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -11,11 +14,11 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   synchronize: false,
 };
 
-export const googleSecret = {
-  clientID: 'secret',
-  clientSecret: 'secret',
-};
 
+export const googleSecret = {
+  clientID: process.env.clientID,
+  clientSecret: process.env.clientSecret,
+}
 export const jwtConstants = {
   secret : 'TopSecret',
 };

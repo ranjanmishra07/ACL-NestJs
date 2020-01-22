@@ -8,7 +8,7 @@ import { UserPermissionService } from 'src/users/services/user-permissions.servi
 import { Role } from 'src/users/entities/role.entity';
 
 export const jwtConstants = {
-  secret: 'secretKey',
+  secret: 'ashish',
 };
 
 
