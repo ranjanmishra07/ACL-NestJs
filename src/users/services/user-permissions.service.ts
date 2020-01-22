@@ -19,34 +19,43 @@ export class UserPermissionService {
     private readonly permissionRepository: Repository<Permission>,
   ) { }
 
-  async createUserPermissions(createUserPermissionsDto: CreateUserPermissionsDto): Promise<{success: boolean, message: string}> {
+  async createUserPermissions(createUserPermissionsDto: CreateUserPermissionsDto): Promise<{ success: boolean, message: string }> {
     let result: InsertResult;
     let userRoleMessage;
-    try{
+    try {
       const permissions = await this.permissionRepository.findByIds(createUserPermissionsDto.permissionIds);
       const user = await this.userRepository.findOne(createUserPermissionsDto.id);
-      const userObj: Array<{permission: Permission, user: User}> = [];
+      const userObj: Array<{ permission: Permission, user: User }> = [];
       for (const permission of permissions) {
-        userObj.push({permission, user});
+        userObj.push({ permission, user });
       }
       result = await this.userPermisionRepository.insert(userObj);
     } catch (err) {
       console.log(err);
-      userRoleMessage = {success: false, message: `failed to create the permssion for user ${createUserPermissionsDto.id}`};
+      userRoleMessage = { success: false, message: `failed to create the permssion for user ${createUserPermissionsDto.id}` };
     }
-    if ( result.identifiers && result.identifiers.length === createUserPermissionsDto.permissionIds.length) {
-        userRoleMessage = {success: true, message: 'permssion has been created', permission : result.identifiers};
+    if (result.identifiers && result.identifiers.length === createUserPermissionsDto.permissionIds.length) {
+      userRoleMessage = { success: true, message: 'permssion has been created', permission: result.identifiers };
     } else {
-      userRoleMessage = {success: false, message: 'failed to create the permission'};
+      userRoleMessage = { success: false, message: 'failed to create the permission' };
     }
     return userRoleMessage;
-    }
+  }
 
   async getUserPermissions(user: User): Promise<Permission[]> {
-    const {permissions} = await this.userRepository.findOne(user.id, {relations: ['permissions']});
+    const { permissions } = await this.userRepository.findOne(user.id, { relations: ['permissions'] });
     const ids = permissions.map(p => p.id);
-    const userPermissions = await this.userPermisionRepository.findByIds(ids, {relations: ['permission']});
+    const userPermissions = await this.userPermisionRepository.findByIds(ids, { relations: ['permission'] });
     const permissionRes = userPermissions.map(p => p.permission);
     return permissionRes;
+  }
+
+  async checkUserPermission(user: User, pcode: string): Promise<boolean> {
+    const { permissions } = await this.userRepository.findOne(user.id, { relations: ['permissions'] });
+    const userPermissions = permissions.map(p => p.permission.pcode);
+    if (userPermissions.includes(pcode)) {
+      return true;
+    }
+    return false;
   }
 }

@@ -12,9 +12,10 @@ import { PermissionService } from '../services/permission.service';
 import { UserPermissionService } from '../services/user-permissions.service';
 import { UserRoleService } from '../services/user-roles.service';
 import { UserAccessService } from '../services/user-access.service';
+import { Auth } from '../decorators/authorize-api-routes';
 
 @Controller('user')
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @ApiHeader({
   name: 'Authorization',
   description: 'Auth token',
@@ -27,13 +28,13 @@ export class UserController {
     private readonly userPermissionService: UserPermissionService,
     private readonly userRoleService: UserRoleService,
     private readonly userAccessService: UserAccessService,
-    ){}
+  ) { }
 
   // @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Get()
   async findAllUser(@GetUser() user: User): Promise<User[]> {
     // const roleAcess = await this.roleService.checkAccess(user.role);
-    const result =  await this.userService.findAllUser();
+    const result = await this.userService.findAllUser();
     return result;
   }
 
@@ -78,8 +79,7 @@ export class UserController {
   @Get('permissions')
   @UsePipes(new ValidationPipe())
   async getUserPermissions(@GetUser() user: User) {
-    if(user) {
-      console.log(user);
+    if (user) {
       return await this.userPermissionService.getUserPermissions(user);
     } else {
       throw new HttpException('no user', HttpStatus.NOT_FOUND);
@@ -88,6 +88,7 @@ export class UserController {
 
   // @UseGuards(AuthGuard('jwt'), RolesGuard)
   // @Roles(UserRole.ADMIN, UserRole.SUPERUSER)
+  @Auth(['admin'], 'P-CODE')
   @Get('/profile')
   getProfile(@GetUser() user: User) {
     return user;

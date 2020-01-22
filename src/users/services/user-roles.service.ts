@@ -41,4 +41,12 @@ export class UserRoleService {
     }
     return userRoleMessage;
     }
+
+  async getUserRoles(user: User): Promise<Role[]> {
+    const {userRole} = await this.userRepository.findOne(user.id, {relations: ['userRole']});
+    const ids = userRole.map(r => r.id);
+    const userRoles = await this.userRolesRepositoty.findByIds(ids, {relations: ['role']});
+    const roleRes = userRoles.map(p => p.role);
+    return roleRes;
+  }
 }

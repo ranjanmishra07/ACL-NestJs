@@ -12,11 +12,10 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
 };
 
 export const googleSecret = {
-  clientID: "822165741217-0j91462j93h09fur82gmlfjeucdbthpd.apps.googleusercontent.com",
-  clientSecret: "LuaazKrjVjq3aqj_vbbiV5gp",
-}
+  clientID: 'secret',
+  clientSecret: 'secret',
+};
 
 export const jwtConstants = {
-  secret : 'TopSecret'
-}
-
+  secret : 'TopSecret',
+};

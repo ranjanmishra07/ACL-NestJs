@@ -3,6 +3,9 @@ import { UserService } from '../users/services/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/entities/user.entity';
 import { LoginUserDto } from 'src/users/dto/user-dto';
+import { UserRoleService } from 'src/users/services/user-roles.service';
+import { UserPermissionService } from 'src/users/services/user-permissions.service';
+import { Role } from 'src/users/entities/role.entity';
 
 export const jwtConstants = {
   secret: 'secretKey',
@@ -42,13 +45,13 @@ export class AuthService {
     };
   }
 
-  async validateOAuthLogin(user: User , provider: Provider): Promise<string> {
+  async validateOAuthLogin(user: User , role: Role[], provider: Provider): Promise<string> {
     try {
       const payload = {
         email : user.email,
         id : user.id,
-        role : 'ROLE',
         username : user.name,
+        role,
         provider,
       };
       const jwt: string =  this.jwtService.sign(payload);

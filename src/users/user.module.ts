@@ -18,9 +18,9 @@ import { RoleController } from './controllers/role.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Role, UserRole, UserPermissions, UserAccess, UserRole, Permission]), forwardRef(() => AuthModule) ],
-  controllers: [UserController,RoleController],
+  controllers: [UserController, RoleController],
   providers: [UserService, RoleService, UserRoleService, PermissionService, UserPermissionService, UserAccessService],
-  exports: [UserService, RoleService],
+  exports: [UserService, RoleService, UserPermissionService, UserRoleService],
 })
 export class UserModule  {
   

@@ -1,4 +1,4 @@
-import { Controller, Request, Post, UseGuards, Body, Get, Req, Res } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Body, Get, Req, Res, HttpException, HttpStatus } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from 'src/users/dto/user-dto';
@@ -21,14 +21,17 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  googleLoginCallback(@Req() req, @Res() res)
+  googleLoginCallback(@Req() req)
   {
       // handles the Google OAuth2 callback
-      const jwt: string = req.user.jwt;
-      if (jwt)
-          res.redirect('http://localhost:4200/login/succes/' + jwt);
-      else 
-          res.redirect('http://localhost:4200/login/failure');
+      // console.log('hitting here')
+      const result = req.user.payload;
+      if (result) {
+        return result;
+       } else {
+         throw new HttpException('error while signing in', HttpStatus.SERVICE_UNAVAILABLE);
+       }
+          // res.redirect('http://localhost:4200/login/failure');
   }
 
 }
