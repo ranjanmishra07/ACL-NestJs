@@ -29,7 +29,7 @@
     "@nestjs/typeorm": "^6.2.0",
     "cache-manager-redis-store": "^1.5.0",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.11.0",
+    "class-validator": "^0.14.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "passport": "^0.4.1",
